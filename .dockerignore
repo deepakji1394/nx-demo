@@ -1,0 +1,9 @@
+node_modules
+apps/api
+.git
+.nx
+docs
+coverage
+reports
+dist
+**/.next

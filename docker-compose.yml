@@ -1,0 +1,20 @@
+services:
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    ports:
+      - '8000:8000'
+    environment:
+      JWT_SECRET_KEY: dev-secret-key-change-in-production
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      API_URL: http://api:8000
+    depends_on:
+      - api
