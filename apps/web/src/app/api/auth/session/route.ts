@@ -8,6 +8,9 @@ export async function POST(request: NextRequest) {
   }
 
   const response = NextResponse.json({ ok: true });
+  // Store the token as an httpOnly cookie (unreadable by JS, mitigating XSS
+  // token theft). localStorage would be simpler to wire up but exposes the
+  // token to any injected script.
   response.cookies.set('token', token, {
     httpOnly: true,
     sameSite: 'lax',

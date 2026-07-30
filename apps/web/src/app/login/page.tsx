@@ -26,10 +26,9 @@ export default function LoginPage() {
 
     const { access_token: accessToken } = await loginRes.json();
 
-    // The token is handed to a same-origin route so it can be stored as an
-    // httpOnly cookie (unreadable by JS, mitigating XSS token theft).
-    // localStorage would be simpler to wire up but exposes the token to any
-    // injected script.
+    // Hand the token to a same-origin route so it can be stored as an
+    // httpOnly cookie rather than kept in JS-accessible storage (see
+    // api/auth/session/route.ts for the tradeoff).
     await fetch('/api/auth/session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
